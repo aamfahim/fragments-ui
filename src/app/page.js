@@ -1,9 +1,7 @@
 "use client"
 import { Auth, getUser } from '../auth';
-import { Amplify } from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 import { useEffect, useState } from 'react';
+import { getUserFragments } from '@/api';
 
 export default function Home() {
 
@@ -34,6 +32,7 @@ export default function Home() {
           setloggedIn(false);
         } else {
           setloggedIn(true);
+          getUserFragments(user);
           setUser(user);
           console.log(user);
         }
