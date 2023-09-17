@@ -14,6 +14,7 @@ export async function getUserFragments(user) {
     const res = await fetch(`${apiUrl}/v1/fragments`, {
       // Generate headers with the proper Authorization bearer token to pass
       headers: user.authorizationHeaders(),
+      cache: 'no-store'
     });
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
