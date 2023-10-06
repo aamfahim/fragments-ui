@@ -29,7 +29,7 @@ export default function GetById() {
                         render={({ field }) => <input {...field} placeholder="Fragment ID" className="p-5 rounded-xl w-full" />}
                     />
                 </div>
-                <button type="submit" className='w-full mt-5 rounded-full bg-emerald-400 hover:bg-emerald-600 py-3 px-8 font-bold shadow-lg hover:shadow-md'>Get</button>
+                <button type="submit" className='mt-5 rounded-full bg-emerald-400 hover:bg-emerald-600 py-3 px-8 font-bold shadow-lg hover:shadow-md'>Get</button>
             </form>
             
             
