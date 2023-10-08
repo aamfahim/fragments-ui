@@ -1,7 +1,13 @@
 // src/api.js
 
 // fragments microservice API, defaults to localhost:8080
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+const apiUrl = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_PROD_API_URL : process.env.NEXT_PUBLIC_DEV_API_URL;
+if (process.env.NODE_ENV == "development")
+    console.log("IN development");
+if (process.env.NODE_ENV == "production")
+    console.log("IN production");   
+
+console.log("api url is", apiUrl);
 
 /**
  * Given an authenticated user, request all fragments for this user from the
