@@ -23,7 +23,11 @@ export default function GetAll() {
             // console.log(`expand is ${expand}. and fragments are`,{fragments});
         } catch (error) {
             console.error('Error fetching data:', error);
-            setFragments([]); // or handle the error in some other way
+            if (expand) {
+                setFragmentsobjs([])
+            } else {
+                setFragmentsids([]);
+            }
         }
     };
 
