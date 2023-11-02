@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { getUserFragmentById } from '@/api';
+import { getUserFragmentMetaById } from '@/api';
 import { getUser } from '@/auth';
 
 export default function GetById() {
@@ -10,7 +10,7 @@ export default function GetById() {
     const onSubmit = async (data) => {
         try {
             const user = await getUser();
-            const result = await getUserFragmentById(user, data.id);
+            const result = await getUserFragmentMetaById(user, data.id);
             setFragment(result);
         } catch (err) {
             console.error(err);
@@ -29,7 +29,7 @@ export default function GetById() {
                         render={({ field }) => <input {...field} placeholder="Fragment ID" className="p-5 rounded-xl w-full" />}
                     />
                 </div>
-                <button type="submit" className='mt-5 rounded-full bg-emerald-400 hover:bg-emerald-600 py-3 px-8 font-bold shadow-lg hover:shadow-md'>Get</button>
+                <button type="submit" className='mt-5 rounded-full bg-emerald-400 hover:bg-emerald-600 py-3 px-8 font-bold shadow-lg hover:shadow-md'>Get MetaData</button>
             </form>
             
             

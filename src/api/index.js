@@ -63,10 +63,10 @@ export async function postUserFragment(user, data) {
 }
 
 
-export async function getUserFragmentById(user, id) {
+export async function getUserFragmentMetaById(user, id) {
     try {
 
-        const res = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+        const res = await fetch(`${apiUrl}/v1/fragments/${id}/info`, {
             // Generate headers with the proper Authorization bearer token to pass
             headers: user.authorizationHeaders(),
             cache: 'no-store'
