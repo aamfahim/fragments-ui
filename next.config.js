@@ -9,6 +9,7 @@ const config = {
             );
         return config;
     },
+    output: 'export',
     // …
 };
 
