@@ -15,4 +15,7 @@ module.exports = {
     },
   },
   plugins: [],
+  purge: ['./src/*/.{js,ts,jsx,tsx}'],
+  optimizeCss: false, 
+  enableBabelRuntime: true,
 }
