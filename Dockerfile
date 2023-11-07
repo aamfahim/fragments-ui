@@ -31,8 +31,9 @@ WORKDIR /app
 # Copy cached dependencies(node_modules) from previous stage
 COPY --from=dependencies /app /app
 
-# Copy src from local to docker /app/src/
+# Copy src from local to docker /app/
 COPY ./ ./
+
 # Create a build and export the static files
 RUN npm run build
 
