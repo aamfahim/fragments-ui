@@ -1,8 +1,8 @@
 "use client"
 import { Auth, getUser } from '../auth';
 import { useEffect, useState } from 'react';
-import { getUserFragments } from '@/api';
-import Fragment from '@/Components/fragment';
+import { getUserFragments } from '../api';
+import Fragment from '../Components/fragment';
 
 export default function Home() {
 
