@@ -67,4 +67,12 @@ jobs:
           push: true
           # Use 3 tags :sha-sha-7d821bd14e0d6c381dc57a5369ae1a3a9220664f, :main, and :latest
           tags: ${{ env.DOCKERHUB_REPO }}:${{ env.SHA_TAG }}, ${{ env.DOCKERHUB_REPO }}:main, ${{ env.DOCKERHUB_REPO }}:latest
+          build-args: |
+            NEXT_PUBLIC_DEV_API_URL=${{ secrets.NEXT_PUBLIC_DEV_API_URL }}
+            NEXT_PUBLIC_PROD_API_URL=${{ secrets.NEXT_PUBLIC_PROD_API_URL }}
+            NEXT_PUBLIC_AWS_COGNITO_POOL_ID=${{ secrets.NEXT_PUBLIC_AWS_COGNITO_POOL_ID }}
+            NEXT_PUBLIC_AWS_COGNITO_CLIENT_ID=${{ secrets.NEXT_PUBLIC_AWS_COGNITO_CLIENT_ID }}
+            NEXT_PUBLIC_AWS_COGNITO_HOSTED_UI_DOMAIN=${{ secrets.NEXT_PUBLIC_AWS_COGNITO_HOSTED_UI_DOMAIN }}
+            NEXT_PUBLIC_OAUTH_SIGN_IN_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_OAUTH_SIGN_IN_REDIRECT_URL }}
+            NEXT_PUBLIC_OAUTH_SIGN_OUT_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_OAUTH_SIGN_OUT_REDIRECT_URL }}
         
