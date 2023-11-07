@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getUserFragments } from '@/api';
-import { getUser } from '@/auth';
+import { getUserFragments } from '../api';
+import { getUser } from '../auth';
 
 export default function GetAll() {
     const [fragmentsids, setFragmentsids] = useState([]);

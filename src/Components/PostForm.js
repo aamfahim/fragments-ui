@@ -1,5 +1,5 @@
-import { postUserFragment } from '@/api';
-import { getUser } from '@/auth';
+import { postUserFragment } from '../api';
+import { getUser } from '../auth';
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
