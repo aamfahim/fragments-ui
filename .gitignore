@@ -134,3 +134,5 @@ dist
 # misc
 .DS_Store
 *.pem
+
+.eslintrc.json
