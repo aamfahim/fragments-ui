@@ -68,15 +68,50 @@ export async function getUserFragmentMetaById(user, id) {
 
         const res = await fetch(`${apiUrl}/v1/fragments/${id}/info`, {
             // Generate headers with the proper Authorization bearer token to pass
-            headers: user.authorizationHeaders(),
-            cache: 'no-store'
+            headers: {
+                ...user.authorizationHeaders(),
+                'Content-Type': 'text/plain'
+            },
+            cache: 'no-store',
         });
         if (!res.ok) {
             throw new Error(`${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        console.log('Got user fragments data', { data });
+        console.log('Got user fragments meta data', { data });
         return data;
+    } catch (err) {
+        console.error('Unable to call GET /v1/fragment', { err });
+    }
+}
+
+
+export async function getUserFragmentDataById(user, id) {
+    try {
+        
+        const res = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+            // Generate headers with the proper Authorization bearer token to pass
+            headers: {
+                ...user.authorizationHeaders(),
+                'Content-Type': 'text/plain'
+            },
+            cache: 'no-store',
+        });
+        if (!res.ok) {
+            throw new Error(`${res.status} ${res.statusText}`);
+        }
+
+        const contentType = res.headers.get('Content-Type');
+        
+        if (contentType && contentType.includes('application/json')) {
+            const data = await res.json();
+            console.log('Got user fragments data (JSON)', { data });
+            return data;
+        } else {
+            const textData = await res.text();
+            console.log('Got user fragments data (Text)', { textData });
+            return textData;
+        }
     } catch (err) {
         console.error('Unable to call GET /v1/fragment', { err });
     }
