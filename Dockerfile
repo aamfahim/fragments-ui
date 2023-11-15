@@ -73,3 +73,8 @@ CMD ["nginx", "-g", "daemon off;"]
 # We run our service on port 80
 EXPOSE 80
 
+# Run a healthcheck on the docker every 30s(--interval)
+# Run after 30s (--start-period)
+# If it failes wait 30s(--timeout) and try 3 times(--retries)
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl --fail localhost:${PORT} || exit 1c
