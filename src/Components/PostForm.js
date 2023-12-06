@@ -29,6 +29,7 @@ export default function PostForm() {
                             <option value="image/png">image/png</option>
                             <option value="image/jpeg">image/jpeg</option>
                             <option value="image/webp">image/webp</option>
+                            <option value="image/gif">image/gif</option>
                         </select>
                     )}
                 />
