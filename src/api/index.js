@@ -79,7 +79,7 @@ export async function getUserFragmentMetaById(user, id) {
         }
         const data = await res.json();
         console.log('Got user fragments meta data', { data });
-        return data;
+        return data.fragment;
     } catch (err) {
         console.error('Unable to call GET /v1/fragment', { err });
     }
@@ -88,7 +88,7 @@ export async function getUserFragmentMetaById(user, id) {
 
 export async function getUserFragmentDataById(user, id) {
     try {
-        
+
         const res = await fetch(`${apiUrl}/v1/fragments/${id}`, {
             // Generate headers with the proper Authorization bearer token to pass
             headers: {
@@ -102,7 +102,7 @@ export async function getUserFragmentDataById(user, id) {
         }
 
         const contentType = res.headers.get('Content-Type');
-        
+
         if (contentType && contentType.includes('application/json')) {
             const data = await res.json();
             console.log('Got user fragments data (JSON)', { data });
@@ -114,5 +114,29 @@ export async function getUserFragmentDataById(user, id) {
         }
     } catch (err) {
         console.error('Unable to call GET /v1/fragment', { err });
+    }
+}
+
+export async function updateUserFragment(user, id, typeToConvert, newData) {
+    try {
+        const response = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+            method: 'PUT',
+            headers: {
+                ...user.authorizationHeaders(), // Adding authorization headers from the user object
+                'Content-Type': typeToConvert // Setting the content type from the data object
+            },
+            body: newData // Including the text from the data object as the request body
+        });
+
+        if (!response.ok) {
+            // If the response status is not okay, throw an error with the status text
+            throw new Error(`Failed to update fragment: ${response.statusText}`);
+        }
+
+        // Parse and return the response JSON (adjust as needed based on the actual response format)
+        return await response.json();
+    }
+    catch (error) {
+        console.error('Error during updateUserFragment operation: ', error);
     }
 }
