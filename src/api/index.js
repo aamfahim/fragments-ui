@@ -140,3 +140,27 @@ export async function updateUserFragment(user, id, typeToConvert, newData) {
         console.error('Error during updateUserFragment operation: ', error);
     }
 }
+
+
+export async function deleteUserFragment(user, id) {
+    try {
+        const response = await fetch(`${apiUrl}/v1/fragments/${id}`, {
+            method: 'DELETE',
+            headers: {
+                ...user.authorizationHeaders(), // Adding authorization headers from the user object
+                'Content-Type': 'text/plain'
+            },
+        });
+
+        if (!response.ok) {
+            // If the response status is not okay, throw an error with the status text
+            throw new Error(`Failed to delete fragment: ${response.statusText}`);
+        }
+
+        // Parse and return the response JSON (adjust as needed based on the actual response format)
+        return await response.json();
+    }
+    catch (error) {
+        console.error('Error during deleteUserFragment operation: ', error);
+    }
+}
