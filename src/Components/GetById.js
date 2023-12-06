@@ -42,6 +42,9 @@ export default function GetById() {
                         name="id"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: true,
+                        }}
                         render={({ field }) => <input {...field} placeholder="Fragment ID" className="p-5 rounded-xl w-96" />}
                     />
                 </div>
