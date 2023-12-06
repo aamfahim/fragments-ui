@@ -7,11 +7,31 @@ export default function PostForm() {
     const { control, handleSubmit, watch } = useForm();
     const selectedType = watch("type");
 
+    // const onSubmit = async (data) => {
+    //     const user = await getUser();
+    //     const res = await postUserFragment(user, data);
+    //     console.log(data);
+    //     console.log(res);
+    // };
+
     const onSubmit = async (data) => {
         const user = await getUser();
-        const res = await postUserFragment(user, data);
+
+        let formData = data;
+
+        if (selectedType.startsWith('image/')) {
+            const file = data.inputFile[0]; // Assuming the name of your file input is "inputFile"
+            if (file) {
+                const blob = new Blob([file], { type: selectedType });
+                formData = { ...data, inputFile: blob };
+            }
+        }
+
+        const res = await postUserFragment(user, formData);
+        console.log(formData);
         console.log(res);
     };
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,7 +55,7 @@ export default function PostForm() {
                 />
                 {selectedType && selectedType.startsWith('image') ? (
                     <Controller
-                        name="input"
+                        name="inputFile"
                         control={control}
                         defaultValue=""
                         render={({ field }) => <input {...field} type="file" className="p-5 rounded-xl mt-2" />}
