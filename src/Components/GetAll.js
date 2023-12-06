@@ -59,8 +59,12 @@ export default function GetAll() {
                     :
                     fragmentsids.map((fragment, index) => (
                         <div key={index} className="p-4 m-2 border rounded-lg">
-                            <p><strong>ID:</strong> {fragment}</p>
+                            <p><strong>ID:</strong> {fragment} <button
+                                className="bg-blue-600 hover:bg-blue-700 py-2 px-2 font-bold shadow-lg hover:shadow-md rounded"
+                                onClick={() => navigator.clipboard.writeText(fragment)}>Copy ID</button></p>
+
                         </div>
+
                     ))
             )}
         </>
