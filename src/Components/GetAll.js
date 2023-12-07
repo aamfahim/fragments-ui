@@ -54,6 +54,9 @@ export default function GetAll() {
                             <p><strong>Updated:</strong> {fragment.updated}</p>
                             <p><strong>Type:</strong> {fragment.type}</p>
                             <p><strong>Size:</strong> {fragment.size}</p>
+                            <button
+                                className="bg-blue-600 hover:bg-blue-700 py-2 px-2 font-bold shadow-lg hover:shadow-md rounded"
+                                onClick={() => navigator.clipboard.writeText(fragment.id)}>Copy ID</button>
                         </div>
                     ))
                     :
