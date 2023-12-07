@@ -104,14 +104,26 @@ export async function getUserFragmentDataById(user, id) {
 
         const contentType = res.headers.get('Content-Type');
 
-        if (contentType && contentType.includes('application/json')) {
+        if (contentType && contentType.includes('application/json')) 
+        {
             const data = await res.json();
             console.log('Got user fragments data (JSON)', { data });
-            return data;
-        } else {
+            return { type: "json", data: data };
+
+        }
+        else if (contentType && contentType.includes('image/'))
+        {
+            const data = await res.blob();
+            console.log('Got user fragments data (Image)', { data });
+            return { type: "image", data: data };
+
+        }
+        else
+        {
             const textData = await res.text();
             console.log('Got user fragments data (Text)', { textData });
-            return textData;
+            return { type: "text", data: textData };
+
         }
     } catch (err) {
         console.error('Unable to call GET /v1/fragment', { err });
