@@ -13,6 +13,7 @@
     "autoprefixer": "10.4.15",
     "aws-amplify": "^5.3.11",
     "aws-crt": "^1.18.0",
+    "content-type": "^1.0.5",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
