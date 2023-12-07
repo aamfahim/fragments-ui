@@ -35,23 +35,41 @@ export default function GetById() {
     };
 
     function renderFragmentData(fragmentData) {
+        console.log(fragmentData.type.startsWith('image/'), "is starts with")
         switch (fragmentData.type) {
-            case 'json':
-                return <p><strong>Data:</strong> {JSON.stringify(fragmentData.data, null, 2)}</p>;
-            case 'image':
-                // Create a URL for the blob
-                const imageUrl = URL.createObjectURL(fragmentData.data);
-                return <img src={imageUrl} alt="Fragment" className="mt-2" />;
-            case 'text':
-                return <p><strong>Data:</strong> {fragmentData.data}</p>;
+            case 'application/json':
+                return <p><strong>Data (JSON):</strong> {JSON.stringify(fragmentData.data, null, 2)}</p>;
+            case 'image/jpeg':
+            case 'image/jpg':
+                let imageUrljpg = URL.createObjectURL(fragmentData.data);
+                return <div><strong>Data (image/jpeg):</strong><img src={imageUrljpg} alt="Fragment" className="mt-2" /></div>;
+
+            case 'image/png':
+                let imageUrlpng = URL.createObjectURL(fragmentData.data);
+                return <div><strong>Data (image/png):</strong><img src={imageUrlpng} alt="Fragment" className="mt-2" /></div>;
+
+            case 'image/gif':
+                let imageUrlgif = URL.createObjectURL(fragmentData.data);
+                return <div><strong>Data (image/gif):</strong><img src={imageUrlgif} alt="Fragment" className="mt-2" /></div>;
+
+            case 'image/webp':
+                let imageUrlwebp = URL.createObjectURL(fragmentData.data);
+                return <div><strong>Data (image/webp):</strong><img src={imageUrlwebp} alt="Fragment" className="mt-2" /></div>;
+                
+            case 'text/plain':
+                return <div><strong>Data (Text):</strong> <p>{fragmentData.data}</p></div>;
+            case 'text/markdown':                
+                return <div><strong>Data (Markdown):</strong> <p>{fragmentData.data}</p></div>;
+            case 'text/html':
+                return <div><strong>Data (html):</strong> <p>{fragmentData.data}</p></div>;
             default:
                 return <p>Unsupported data type</p>;
         }
     }
-    
+
     return (
         <div className="flex flex-col items-start">
-            <form>
+            <form className='w-1/2'>
                 <div className="mb-3">
                     <Controller
                         name="id"
@@ -60,7 +78,7 @@ export default function GetById() {
                         rules={{
                             required: true,
                         }}
-                        render={({ field }) => <input {...field} placeholder="Fragment ID" className="p-5 rounded-xl w-96" />}
+                        render={({ field }) => <input {...field} placeholder="Fragment ID" className="p-5 rounded-xl w-full" />}
                     />
                 </div>
                 <div className="space-x-5">
