@@ -1,4 +1,5 @@
 // src/api.js
+const contentType = require('content-type');
 
 // fragments microservice API, defaults to localhost:8080
 const apiUrl = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_PROD_API_URL : process.env.NEXT_PUBLIC_DEV_API_URL;
@@ -102,27 +103,30 @@ export async function getUserFragmentDataById(user, id) {
             throw new Error(`${res.status} ${res.statusText}`);
         }
 
-        const contentType = res.headers.get('Content-Type');
+        let resCT = res.headers.get('Content-Type');
+        console.log("contentType is before", resCT);
+        resCT = contentType.parse(resCT).type
+        console.log("contentType is after", resCT);
 
-        if (contentType && contentType.includes('application/json')) 
+        if (resCT && resCT.includes('application/json')) 
         {
             const data = await res.json();
             console.log('Got user fragments data (JSON)', { data });
-            return { type: "json", data: data };
+            return { type: resCT, data: data };
 
         }
-        else if (contentType && contentType.includes('image/'))
+        else if (resCT && resCT.includes('image/'))
         {
             const data = await res.blob();
             console.log('Got user fragments data (Image)', { data });
-            return { type: "image", data: data };
+            return { type: resCT, data: data };
 
         }
         else
         {
             const textData = await res.text();
             console.log('Got user fragments data (Text)', { textData });
-            return { type: "text", data: textData };
+            return { type: resCT, data: textData };
 
         }
     } catch (err) {
