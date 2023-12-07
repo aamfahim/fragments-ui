@@ -31,7 +31,12 @@ export default function GetAll() {
         }
     };
 
-
+    function sortFragmentsByUpdated(a, b) {
+        const dateA = new Date(a.updated);
+        const dateB = new Date(b.updated);
+        return dateB - dateA; // For descending order
+    }
+    
     useEffect(() => {
         fetchData();
     }, [expand]);
@@ -46,7 +51,7 @@ export default function GetAll() {
                 <div><strong>Empty</strong></div>
             ) : (
                 expand ?
-                    fragmentsobjs.map((fragment, index) => (
+                    fragmentsobjs.sort(sortFragmentsByUpdated).map((fragment, index) => (
                         <div key={index} className="p-4 m-2 border rounded-lg">
                             <p><strong>ID:</strong> {fragment.id}</p>
                             <p><strong>Owner ID:</strong> {fragment.ownerId}</p>
