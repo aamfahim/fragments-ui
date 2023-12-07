@@ -34,6 +34,21 @@ export default function GetById() {
         }
     };
 
+    function renderFragmentData(fragmentData) {
+        switch (fragmentData.type) {
+            case 'json':
+                return <p><strong>Data:</strong> {JSON.stringify(fragmentData.data, null, 2)}</p>;
+            case 'image':
+                // Create a URL for the blob
+                const imageUrl = URL.createObjectURL(fragmentData.data);
+                return <img src={imageUrl} alt="Fragment" className="mt-2" />;
+            case 'text':
+                return <p><strong>Data:</strong> {fragmentData.data}</p>;
+            default:
+                return <p>Unsupported data type</p>;
+        }
+    }
+    
     return (
         <div className="flex flex-col items-start">
             <form>
@@ -64,16 +79,12 @@ export default function GetById() {
                     <p><strong>Size:</strong> {fragmentMeta.size}</p>
                 </div>
             )}
-
             {fragmentData && (
                 <div className="p-4 m-2 border rounded-lg mt-5">
-                    {typeof fragmentData === 'object' ? (
-                        <p><strong>Data:</strong> {JSON.stringify(fragmentData, null, 2)}</p>
-                    ) : (
-                        <p><strong>Data:</strong> {fragmentData}</p>
-                    )}
+                    {renderFragmentData(fragmentData)}
                 </div>
             )}
         </div>
     );
 }
+
