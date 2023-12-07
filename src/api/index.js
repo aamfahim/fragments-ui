@@ -37,15 +37,16 @@ export async function getUserFragments(user, expand = 0) {
 }
 
 
-export async function postUserFragment(user, data) {
+export async function postUserFragment(user, type, data) {
+    console.log("inside the function", data);
     try {
         const response = await fetch(`${apiUrl}/v1/fragments/`, {
             method: 'POST',
             headers: {
                 ...user.authorizationHeaders(), // Adding authorization headers from the user object
-                'Content-Type': data.type // Setting the content type from the data object
+                'Content-Type': type // Setting the content type from the data object
             },
-            body: data.input // Including the text from the data object as the request body
+            body: data // Including the text from the data object as the request body
         });
 
         if (!response.ok) {
